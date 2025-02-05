@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Will You Be My Val?</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      text-align: center;
+      background-color: #ffe4e1;
+      margin: 0;
+      padding: 0;
+      font-style: italic;
+    }
+
+    h1 {
+      margin-top: 50px;
+      font-size: 2.5rem;
+      color: #ff69b4;
+    }
+
+    img {
+      width: 200px;
+      height: auto;
+      margin: 20px 0;
+    }
+
+    .buttons {
+      margin-top: 20px;
+    }
+
+    .btn {
+      display: inline-block;
+      padding: 10px 20px;
+      font-size: 1.2rem;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .yes-btn {
+      background-color: #32cd32;
+      color: white;
+    }
+
+    .yes-btn:hover {
+      background-color: #228b22;
+    }
+
+    .no-btn {
+      background-color: #ff4500;
+      color: white;
+      position: relative;
+    }
+
+    .no-btn:hover {
+      transform: translate(calc(100px - 50%), calc(100px - 50%));
+    }
+  </style>
+</head>
+<body>
+  <h1>Will You Be My Val? 🥺👉👈💝</h1>
+  <img src="/front.jpg" alt="Teddy Bear">
+  <div class="buttons">
+    <button class="btn yes-btn">Yes</button>
+    <button class="btn no-btn">No</button>
+  </div>
+  <script>
+    const noBtn = document.querySelector('.no-btn');
+const yesBtn = document.querySelector('.yes-btn');
+let hoverCount = 0;
+let yesClicked = false; // Prevents No button from moving after Yes is clicked
+
+// Store the original position of the No button
+const originalNoPosition = noBtn.getBoundingClientRect();
+const originalX = originalNoPosition.left;
+const originalY = originalNoPosition.top;
+
+// Move No button randomly on hover
+noBtn.addEventListener('mouseover', () => {
+    if (!yesClicked) { // Only move if Yes is NOT clicked
+        hoverCount++; // Increase hover count
+
+        if (hoverCount === 3) {
+            const messageElement = showMessage("Why are you hesitating? Just say YES! 😆");
+
+            // Remove message after 3 seconds
+            setTimeout(() => {
+                messageElement.remove();
+            }, 1000);
+        }
+        if (hoverCount === 5){
+          const messageElement = showMessage("You just hate me at this point😒😓");
+
+          setTimeout(() => {
+            messageElement.remove();
+          },1000)
+        }
+        if (hoverCount === 8){
+          quit();
+          return;
+        }
+
+        const x = (Math.random() - 0.5) * window.innerWidth * 0.6;
+        const y = (Math.random() - 0.5) * window.innerHeight * 0.8;
+        noBtn.style.transform = `translate(${x}px, ${y}px)`;
+    }
+});
+
+function quit() {
+    document.body.innerHTML = ''; // Clear everything on the page
+
+    const message = document.createElement('h1');
+    message.textContent = "There was no use... 😔💔🥀";
+    message.style.fontSize = '30px';
+    message.style.fontWeight = 'bold';
+    message.style.color = 'gray';
+    message.style.textAlign = 'center';
+    message.style.marginTop = '50px';
+
+    const song = document.createElement('audio');
+    song.src = "\sad-dramatic-piano-sad-alone-drama-262415.mp3";
+    song.autoplay = true;
+    song.loop = true;
+
+    document.body.appendChild(message);
+    document.body.appendChild(song);
+
+}
+
+// Function to display a message and return the element
+function showMessage(text) {
+    const message = document.createElement('p');
+    message.textContent = text;
+    message.style.fontSize = '20px';
+    message.style.fontWeight = 'bold';
+    message.style.color = 'red';
+    message.style.textAlign = 'center';
+    document.body.appendChild(message);
+    return message;
+}
+
+// When Yes is clicked
+yesBtn.addEventListener('click', () => {
+    yesClicked = true; // Prevent No button from moving
+
+    // Reset No button position
+    noBtn.style.transform = 'none';
+    noBtn.style.position = 'absolute';
+    noBtn.style.left = `${originalX}px`;
+    noBtn.style.top = `${originalY}px`;
+
+    // Store message and image in localStorage
+    localStorage.setItem('yesMessage', 'Yessss oh my honey bunny!! 😊❤️');
+    localStorage.setItem('yesImage', '/end pae.jpg');
+
+    // Refresh the page after 1 second
+    setTimeout(() => {
+        location.reload();
+    }, 1000);
+});
+
+// Check if there is a Yes message stored after refresh
+window.addEventListener('load', () => {
+    const message = localStorage.getItem('yesMessage');
+    const imageSrc = localStorage.getItem('yesImage');
+
+    if (message) {
+        showMessage(message);
+
+        const image = document.createElement('img');
+        image.src = imageSrc;
+        image.alt = 'Teddy';
+        image.style.width = '200px';
+        image.style.display = 'block';
+        image.style.margin = '20px auto';
+
+        document.body.appendChild(image);
+
+        // Clear stored message after displaying it
+        localStorage.removeItem('yesMessage');
+        localStorage.removeItem('yesImage');
+    }
+});
+
+  </script>
+</body>
+</html>

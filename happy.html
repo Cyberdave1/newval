@@ -62,7 +62,7 @@
 </head>
 <body>
   <h1>Will You Be My Val? 🥺👉👈💝</h1>
-  <img src="/front.jpg" alt="Teddy Bear">
+  <img src="./front.jpg" alt="Teddy Bear">
   <div class="buttons">
     <button class="btn yes-btn">Yes</button>
     <button class="btn no-btn">No</button>
@@ -121,7 +121,7 @@ function quit() {
     message.style.marginTop = '50px';
 
     const song = document.createElement('audio');
-    song.src = "\sad-dramatic-piano-sad-alone-drama-262415.mp3";
+    song.src = "./sad-dramatic-piano-sad-alone-drama-262415.mp3";
     song.autoplay = true;
     song.loop = true;
 
@@ -154,7 +154,7 @@ yesBtn.addEventListener('click', () => {
 
     // Store message and image in localStorage
     localStorage.setItem('yesMessage', 'Yessss oh my honey bunny!! 😊❤️');
-    localStorage.setItem('yesImage', '/end pae.jpg');
+    localStorage.setItem('yesImage', './end pae.jpg');
 
     // Refresh the page after 1 second
     setTimeout(() => {
